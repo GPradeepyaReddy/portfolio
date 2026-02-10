@@ -403,16 +403,19 @@ export default function App() {
               </div>
               <h1 className="text-3xl md:text-4xl lg:text-6xl font-black leading-[0.9] mb-4 md:mb-6 tracking-tighter uppercase tracking-[-0.04em]">Marketing / <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Business Analyst</span></h1>
               <p className="text-sm md:text-base text-zinc-400 max-w-lg mb-6 md:mb-8 leading-relaxed font-medium">Turning complex datasets into growth-driving narratives. I blend logical Computer Science depth with high-energy business intuition.</p>
-              <div className="flex flex-col sm:flex-row flex-wrap gap-2 md:gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2 md:gap-4 items-center sm:items-start justify-center sm:justify-start">
                 <a href="#projects" className="px-4 md:px-8 py-2 md:py-4 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-widest text-xs md:text-sm rounded-lg md:rounded-xl transition-all transform hover:scale-105 flex items-center justify-center group">View Work <ChevronRight size={14} className="md:size-[18px] ml-1 group-hover:translate-x-1 transition-transform" /></a>
                 <a href="#contact" className="px-4 md:px-8 py-2 md:py-4 bg-zinc-900 hover:bg-zinc-800 text-white font-black uppercase tracking-widest text-xs md:text-sm rounded-lg md:rounded-xl border border-zinc-800 transition-all">Connect</a>
               </div>
             </motion.div>
-            <motion.div initial={{ opacity: 2.6, scale: 0.9 }} animate={{ opacity: 2.6, scale: 1 }} transition={{ duration: 1 }} className="relative justify-self-end">
+            <motion.div initial={{ opacity: 2.6, scale: 0.9 }} animate={{ opacity: 2.6, scale: 1 }} transition={{ duration: 1 }} className="relative justify-self-center md:justify-self-end mx-auto md:mx-0">
               <div className="aspect-[3/4] rounded-lg md:rounded-xl overflow-hidden transition-all duration-700 relative group border-2 border-zinc-800 shadow-2xl shadow-blue-500/10 max-w-xs h-80 md:h-96">
                 <img src="/milli_3.png" alt="Pradeepya Reddy" className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-260" />
-                <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6"><p className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-blue-400 mb-1 md:mb-2">Chicago Based</p><p className="font-black tracking-tighter" style={{fontSize: '1.7rem'}}>Pradeepya Reddy Gadipally</p></div>
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 md:bottom-6 md:left-6 md:transform-none md:-translate-x-0 text-center md:text-left">
+                  <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-blue-400 mb-1 md:mb-2">Chicago Based</p>
+                  <p className="font-black tracking-tighter" style={{fontSize: '1.7rem'}}>Pradeepya Reddy Gadipally</p>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -455,9 +458,9 @@ export default function App() {
               ].map((exp, idx) => (
                 <div key={idx} className="group relative">
                   <div className="flex flex-col md:flex-row gap-6 p-6 bg-zinc-900 border border-zinc-800 rounded-2xl group-hover:border-green-500/30 transition-all shadow-2xl">
-                    <div className="md:w-1/4"><div className="flex items-center space-x-2 text-green-400 mb-3"><exp.icon size={20} /><span className="font-black tracking-[0.2em] uppercase text-[10px]">{exp.period}</span></div><h3 className="text-xl font-black mb-2 leading-tight tracking-tighter">{exp.role}</h3><p className="text-zinc-500 font-bold text-xs tracking-widest uppercase">{exp.company}</p></div>
-                    <div className="md:w-1/2"><p className="text-zinc-400 leading-relaxed font-medium text-sm">{exp.highlights}</p></div>
-                    <div className="md:w-1/4 flex items-center justify-end"><div className="text-right p-4 bg-zinc-950 rounded-2xl border border-zinc-800 group-hover:border-green-500/20 shadow-inner"><div className="text-xl font-black text-white mb-1 tracking-tighter">{exp.stats}</div><div className="text-[8px] font-black uppercase tracking-[0.4em] text-zinc-600">Milestone Impact</div></div></div>
+                    <div className="md:w-1/4 flex flex-col items-center md:items-start text-center md:text-left"><div className="flex items-center space-x-2 text-green-400 mb-3"><exp.icon size={20} /><span className="font-black tracking-[0.2em] uppercase text-[10px]">{exp.period}</span></div><h3 className="text-xl font-black mb-2 leading-tight tracking-tighter">{exp.role}</h3><p className="text-zinc-500 font-bold text-xs tracking-widest uppercase">{exp.company}</p></div>
+                    <div className="md:w-1/2 text-center md:text-left"><p className="text-zinc-400 leading-relaxed font-medium text-sm">{exp.highlights}</p></div>
+                    <div className="md:w-1/4 flex items-center justify-center md:justify-end"><div className="text-center md:text-right p-4 bg-zinc-950 rounded-2xl border border-zinc-800 group-hover:border-green-500/20 shadow-inner"><div className="text-xl font-black text-white mb-1 tracking-tighter">{exp.stats}</div><div className="text-[8px] font-black uppercase tracking-[0.4em] text-zinc-600">Milestone Impact</div></div></div>
                   </div>
                 </div>
               ))}
@@ -476,9 +479,9 @@ export default function App() {
               ].map((exp, idx) => (
                 <div key={idx} className="group relative">
                   <div className="flex flex-col md:flex-row gap-6 p-6 bg-zinc-900 border border-zinc-800 rounded-2xl group-hover:border-green-500/30 transition-all shadow-2xl">
-                    <div className="md:w-1/4"><div className="flex items-center space-x-2 text-green-400 mb-3"><exp.icon size={20} /><span className="font-black tracking-[0.2em] uppercase text-[10px]">{exp.period}</span></div><h3 className="text-xl font-black mb-2 leading-tight tracking-tighter">{exp.role}</h3><p className="text-zinc-500 font-bold text-xs tracking-widest uppercase">{exp.company}</p></div>
-                    <div className="md:w-1/2"><p className="text-zinc-400 leading-relaxed font-medium text-sm">{exp.highlights}</p></div>
-                    <div className="md:w-1/4 flex items-center justify-end"><div className="text-right p-4 bg-zinc-950 rounded-2xl border border-zinc-800 group-hover:border-green-500/20 shadow-inner"><div className="text-xl font-black text-white mb-1 tracking-tighter">{exp.stats}</div><div className="text-[8px] font-black uppercase tracking-[0.4em] text-zinc-600">Milestone Impact</div></div></div>
+                    <div className="md:w-1/4 flex flex-col items-center md:items-start text-center md:text-left"><div className="flex items-center space-x-2 text-green-400 mb-3"><exp.icon size={20} /><span className="font-black tracking-[0.2em] uppercase text-[10px]">{exp.period}</span></div><h3 className="text-xl font-black mb-2 leading-tight tracking-tighter">{exp.role}</h3><p className="text-zinc-500 font-bold text-xs tracking-widest uppercase">{exp.company}</p></div>
+                    <div className="md:w-1/2 text-center md:text-left"><p className="text-zinc-400 leading-relaxed font-medium text-sm">{exp.highlights}</p></div>
+                    <div className="md:w-1/4 flex items-center justify-center md:justify-end"><div className="text-center md:text-right p-4 bg-zinc-950 rounded-2xl border border-zinc-800 group-hover:border-green-500/20 shadow-inner"><div className="text-xl font-black text-white mb-1 tracking-tighter">{exp.stats}</div><div className="text-[8px] font-black uppercase tracking-[0.4em] text-zinc-600">Milestone Impact</div></div></div>
                   </div>
                 </div>
               ))}
