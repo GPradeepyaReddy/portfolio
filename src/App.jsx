@@ -279,6 +279,9 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSkillCategory, setActiveSkillCategory] = useState('All');
   const [expandedProject, setExpandedProject] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const navLinks = [
     { name: 'Home', href: '#home' },
@@ -356,6 +359,39 @@ export default function App() {
   const filteredSkills = activeSkillCategory === 'All' 
     ? skills 
     : skills.filter(skill => skill.category === activeSkillCategory);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(false);
+    setSubmitSuccess(false);
+
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await fetch('https://formspree.io/f/maqdnkrk', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        setSubmitSuccess(true);
+        e.target.reset();
+        setTimeout(() => setSubmitSuccess(false), 5000);
+      } else {
+        setSubmitError(true);
+        setTimeout(() => setSubmitError(false), 5000);
+      }
+    } catch (error) {
+      setSubmitError(true);
+      setTimeout(() => setSubmitError(false), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans selection:bg-blue-500/30">
@@ -537,10 +573,23 @@ export default function App() {
                 <div className="flex space-x-3 md:space-x-4">{[{ icon: Github, link: "https://github.com/GPradeepyaReddy" }, { icon: Linkedin, link: "https://www.linkedin.com/in/pradeepya-reddy-gadipally-39b568254/" }, { icon: Mail, link: "mailto:gpradeepyar@gmail.com" }].map((social, idx) => (<a key={idx} href={social.link} target="_blank" className="p-3 md:p-4 bg-zinc-900 border border-zinc-800 rounded-full hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all shadow-[0_20px_50px_rgba(0,0,0,0.5)]"><social.icon size={18} className="md:size-[20px]" /></a>))}</div>
               </div>
               <div className="bg-zinc-900 p-6 md:p-8 rounded-lg md:rounded-2xl border border-zinc-800 shadow-2xl">
-                <form className="space-y-4 md:space-y-6" onSubmit={(e) => e.preventDefault()}>
-                  <div className="grid md:grid-cols-2 gap-4 md:gap-6"><div className="space-y-1 md:space-y-2"><label className="text-xs font-black uppercase tracking-[0.3em] text-zinc-600">Full Name</label><input type="text" className="w-full bg-zinc-950 border border-zinc-800 p-2 md:p-3 rounded-lg focus:border-blue-500 outline-none transition-all font-bold text-xs md:text-sm" placeholder="John Doe" /></div><div className="space-y-1 md:space-y-2"><label className="text-xs font-black uppercase tracking-[0.3em] text-zinc-600">Email Address</label><input type="email" className="w-full bg-zinc-950 border border-zinc-800 p-2 md:p-3 rounded-lg focus:border-blue-500 outline-none transition-all font-bold text-xs md:text-sm" placeholder="john@example.com" /></div></div>
-                  <div className="space-y-1 md:space-y-2"><label className="text-xs font-black uppercase tracking-[0.3em] text-zinc-600">Service Category</label><select className="w-full bg-zinc-950 border border-zinc-800 p-2 md:p-3 rounded-lg focus:border-blue-500 outline-none transition-all font-black text-xs md:text-sm appearance-none uppercase tracking-widest"><option>Marketing Analytics</option><option>Data Visualization</option><option>Campaign Audit</option><option>Other</option></select></div>
-                  <button className="w-full py-2 md:py-3 bg-blue-600 hover:bg-blue-500 text-white font-black uppercase tracking-[0.6em] text-[10px] md:text-xs rounded-lg transition-all shadow-xl shadow-blue-900/40 active:scale-[0.97]">Submit Inquiry</button>
+                <form className="space-y-4 md:space-y-6" onSubmit={handleFormSubmit}>
+                  <div className="grid md:grid-cols-2 gap-4 md:gap-6"><div className="space-y-1 md:space-y-2"><label className="text-xs font-black uppercase tracking-[0.3em] text-zinc-600">Full Name</label><input type="text" name="name" className="w-full bg-zinc-950 border border-zinc-800 p-2 md:p-3 rounded-lg focus:border-blue-500 outline-none transition-all font-bold text-xs md:text-sm" placeholder="John Doe" required /></div><div className="space-y-1 md:space-y-2"><label className="text-xs font-black uppercase tracking-[0.3em] text-zinc-600">Email Address</label><input type="email" name="email" className="w-full bg-zinc-950 border border-zinc-800 p-2 md:p-3 rounded-lg focus:border-blue-500 outline-none transition-all font-bold text-xs md:text-sm" placeholder="john@example.com" required /></div></div>
+                  <div className="space-y-1 md:space-y-2"><label className="text-xs font-black uppercase tracking-[0.3em] text-zinc-600">Service Category</label><select name="service" className="w-full bg-zinc-950 border border-zinc-800 p-2 md:p-3 rounded-lg focus:border-blue-500 outline-none transition-all font-black text-xs md:text-sm appearance-none uppercase tracking-widest"><option>Marketing Analytics</option><option>Data Visualization</option><option>Campaign Audit</option><option>Other</option></select></div>
+                  <div className="space-y-1 md:space-y-2"><label className="text-xs font-black uppercase tracking-[0.3em] text-zinc-600">Message</label><textarea name="message" rows="4" className="w-full bg-zinc-950 border border-zinc-800 p-2 md:p-3 rounded-lg focus:border-blue-500 outline-none transition-all font-bold text-xs md:text-sm resize-none" placeholder="Tell me about your project..." required /></div>
+                  <AnimatePresence>
+                    {submitSuccess && (
+                      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="p-3 md:p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-xs md:text-sm font-black uppercase tracking-widest text-center">
+                        Message sent successfully! I'll get back to you soon.
+                      </motion.div>
+                    )}
+                    {submitError && (
+                      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="p-3 md:p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-xs md:text-sm font-black uppercase tracking-widest text-center">
+                        Error sending message. Please try again.
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <button type="submit" disabled={isSubmitting} className="w-full py-2 md:py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-zinc-700 disabled:cursor-not-allowed text-white font-black uppercase tracking-[0.6em] text-[10px] md:text-xs rounded-lg transition-all shadow-xl shadow-blue-900/40 active:scale-[0.97]">{isSubmitting ? 'Submitting...' : 'Submit Inquiry'}</button>
                 </form>
               </div>
             </div>
