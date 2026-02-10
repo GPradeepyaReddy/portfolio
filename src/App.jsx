@@ -410,7 +410,7 @@ export default function App() {
             </motion.div>
             <motion.div initial={{ opacity: 2.6, scale: 0.9 }} animate={{ opacity: 2.6, scale: 1 }} transition={{ duration: 1 }} className="relative justify-self-end">
               <div className="aspect-[3/4] rounded-lg md:rounded-xl overflow-hidden transition-all duration-700 relative group border-2 border-zinc-800 shadow-2xl shadow-blue-500/10 max-w-xs h-80 md:h-96">
-                <img src="milli_3.png" alt="Pradeepya Reddy" className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700" />
+                <img src="/milli_3.png" alt="Pradeepya Reddy" className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-260" />
                 <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6"><p className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-blue-400 mb-1 md:mb-2">Chicago Based</p><p className="font-black tracking-tighter" style={{fontSize: '1.7rem'}}>Pradeepya Reddy Gadipally</p></div>
               </div>
